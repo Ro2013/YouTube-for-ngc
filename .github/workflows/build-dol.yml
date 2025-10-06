@@ -12,10 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install devkitPPC
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y devkitpro-devkitPPC
+- name: Install devkitPro
+  run: |
+    sudo apt-get update
+    sudo apt-get install -y git wget tar
+    wget https://apt.devkitpro.org/install-devkitpro-pkg.deb
+    sudo dpkg -i install-devkitpro-pkg.deb
+    sudo apt-get update
+    sudo apt-get install -y devkitPPC
+          
 
       - name: Build DOL
         run: make
