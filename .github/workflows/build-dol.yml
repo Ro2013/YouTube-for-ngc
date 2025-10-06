@@ -8,28 +8,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. 先檢出你的 repo
       - uses: actions/checkout@v3
 
-      # 2. 安裝 devkitPro (官方推薦方式)
-      - name: Install devkitPro
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget git unzip
-          wget https://apt.devkitpro.org/devkitpro-keyring_2022_all.deb
-          sudo dpkg -i devkitpro-keyring_2022_all.deb
-          sudo apt-get update
-          sudo apt-get install -y devkitpro-pacman
-          sudo dkp-pacman -Syu --noconfirm
-          sudo dkp-pacman -S --noconfirm devkitPPC libogc libfat libnds
+      - name: Install devkitPPC
+        run: sudo apt-get update && sudo apt-get install -y devkitpro-devkitPPC
 
-      # 3. 編譯 .dol
       - name: Build DOL
         run: make
 
-      # 4. 上傳 artifact (新版 v4)
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
