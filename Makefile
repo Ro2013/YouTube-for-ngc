@@ -1,18 +1,17 @@
-# Makefile for GameCube client
+# Makefile for GameCubeClient.dol
 TARGET = GameCubeClient
 OBJS = main.o gui.o network.o input.o video.o history.o
 
-CXX = powerpc-eabi-g++   # devkitPPC 的編譯器
-CFLAGS = -O2 -Wall
-LDFLAGS = -lgc -lSDL2 -lcurl -ljsoncpp
+# 使用 devkitPPC 的 g++
+CXX = powerpc-eabi-g++
 
 all: $(TARGET).dol
 
 %.o: %.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) -c $< -o $@
 
 $(TARGET).dol: $(OBJS)
-	$(CXX) -o $@ $(OBJS) $(LDFLAGS)
+	$(CXX) -o $@ $(OBJS) -lgc -lSDL2 -lcurl -ljsoncpp
 
 clean:
 	rm -f $(TARGET).dol $(OBJS)
