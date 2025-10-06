@@ -4,16 +4,23 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
+
       - name: Install devkitPPC
-        run: sudo apt-get install -y devkitpro-devkitPPC
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y devkitpro-devkitPPC libsdl2-dev libcurl4-openssl-dev libjsoncpp-dev
+
       - name: Build DOL
         run: make
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
