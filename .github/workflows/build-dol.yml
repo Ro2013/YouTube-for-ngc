@@ -10,23 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Install dependencies (devkitPPC)
+      - name: Install devkitPPC
         run: |
           sudo apt-get update
-          sudo apt-get install -y git wget make
-          wget https://apt.devkitpro.org/devkitpro-keyring_2023.1_all.deb
-          sudo dpkg -i devkitpro-keyring_2023.1_all.deb
-          sudo apt-get update
-          sudo apt-get install -y devkitpro-pacman
-          sudo dkp-pacman -Syu --noconfirm
-          sudo dkp-pacman -S --noconfirm devkitPPC
+          sudo apt-get install -y devkitpro-devkitPPC
 
-      - name: Build GameCubeClient.dol
-        run: |
-          make
+      - name: Build DOL
+        run: make
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
