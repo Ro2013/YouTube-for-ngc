@@ -42,6 +42,13 @@ void ShutdownGUI() {
     // 清理 UI 資源
 }
 
+// 新增完整定義
 void LoadMoreSearchResults() {
-    // 呼叫 network 取得更多搜尋結果
+    std::cout << "載入更多搜尋結果..." << std::endl;
+
+    // 呼叫 network 模組取得更多搜尋結果
+    std::vector<VideoItem> more_results = NetworkFetchMore(search_text);
+
+    // 將新結果加入 search_results
+    search_results.insert(search_results.end(), more_results.begin(), more_results.end());
 }
